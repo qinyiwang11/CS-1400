@@ -1,0 +1,33 @@
+/** Outputs a monthly calendar for a given month and year */
+import java.util.Scanner;
+import java.util.Calendar;
+
+public class MyCalendar {
+	public static void main(String[] args) {
+		System.out.println("Q. Wang's My Calendar\n");
+		System.out.print("Enter month year? ");
+    
+		Scanner keyboard = new Scanner(System.in);
+		int month = keyboard.nextInt();
+		int year = keyboard.nextInt();
+    
+		System.out.println();
+		System.out.println(month + "/" + year);
+		System.out.println(" Sun Mon Tue Wed Thu Fri Sat");
+		System.out.println("----------------------------");
+
+		Calendar cal = Calendar.getInstance();
+		cal.set(year, month - 1, 1);
+		int firstday = cal.get(Calendar.DAY_OF_WEEK);
+		int startday = firstday - 1;
+		int days = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+		for(int i = 0; i < startday; i++)
+			System.out.print("    ");
+		for(int i = 1; i <= days; i++) {
+			System.out.printf("%3d ", i);
+			if(((i + startday) % 7 == 0) || (i == days))System.out.println();
+		}
+	}
+}
+
