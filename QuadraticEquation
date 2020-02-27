@@ -1,0 +1,30 @@
+/** Prompts the user for the coefficients a, b, and c of a quadratic equation 
+ 	Prints out the solutions */
+import java.util.Scanner;
+
+public class QuadraticEquation {
+	public static void main(String[] args) {
+		System.out.println("Q. Wang's Quadratic Equation Solver");
+		System.out.println();
+		System.out.print("Enter the values for a b c?   ");
+
+		Scanner sc = new Scanner(System.in);
+
+		double a = sc.nextInt();
+		double b = sc.nextInt();
+		double c = sc.nextInt();
+
+		double discriminant = (b * b) - (4 * a * c);
+ 
+		if(a == 0)
+ 			System.out.println("Not a quadratic equation.");
+		if(discriminant < 0)
+			System.out.println("Roots are imaginary.");
+		else {
+			double x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+			double x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+			System.out.println("x1: " + x1);
+			System.out.println("x2: " + x2);
+		}
+	}
+}
