@@ -1,0 +1,36 @@
+/** Testing the Rational class*/
+import java.io.*;
+public class RationalDemo {
+	public static void main(String[] args) throws IOException {
+		Rational sum = new Rational();
+		Rational r2 = new Rational(1, 2);
+		Rational r3 = new Rational(3);
+		Rational r4 = new Rational(22, 7);
+
+		System.out.println("Rational by Q. Wang\n");
+
+		System.out.println(sum);
+		System.out.println(r2);
+		System.out.println(r3);
+		r3.set(4, 5);
+		System.out.println(r3);
+		System.out.println(r2.getP());
+		System.out.println(r2.getQ());
+		System.out.println(r2.add(r3));
+		System.out.println(r2.subtract(r3));
+		System.out.println(r2.multiply(r3));
+		System.out.println(r2.divide(r3));
+		System.out.println(r2 + (r2.equals(r3) ? " == " : " != ") + r3);
+		System.out.println(r2.toString());
+		System.out.println("aPi: " + r4.toString() + " ~ " + r4.toDouble());
+		System.out.println();
+
+		System.out.println("Harmonic Series:");
+		for(int i = 1; i <= 10; i++) {
+			Rational harmonic = new Rational(1, i);
+			sum = sum.add(harmonic);
+			System.out.println(sum.toString() + " ~ " + sum.toDouble());
+		}
+	}
+}
+
