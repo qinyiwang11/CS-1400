@@ -1,0 +1,112 @@
+/** Reads the information of the elements in the periodic table
+    Prints out the periodic table, sorted by either atomic number or name */
+import java.io.*;
+import java.util.Scanner;
+
+public class PeriodicTable {
+	public static void main(String[] args) throws IOException {
+		File file = new File("/user/tvnguyen7/data/periodictable.dat");
+		Scanner inputFile = new Scanner(file);
+
+		int elements = 0, startScan, index, minIndex, minValue, atomicNumValue;
+		final int maxElements = 120;
+		double totalMass = 0;
+		float massValue;
+		String nameValue, abbrevValue;
+
+		int[] atomicNum = new int[maxElements];
+		String[] abbrev = new String[maxElements];
+		float[] mass = new float[maxElements];
+		String[] name = new String[maxElements];
+
+		while(inputFile.hasNext()){
+			atomicNum[elements] = inputFile.nextInt();
+			abbrev[elements] = inputFile.next();
+			mass[elements] = inputFile.nextFloat();
+			name[elements] = inputFile.next();
+			totalMass += atomicNum[elements];
+			inputFile.nextLine();
+			elements++;
+		}
+
+		double average = totalMass / elements;
+
+		System.out.println("Periodic Table by Q. Wang\n");
+		System.out.println(elements + (" elements"));
+
+		if((args.length == 3) && args[0].equals("print") && (args[1].equals("atomic") || args[1].equals("name"))){
+			PrintWriter outputFile = new PrintWriter("periodictable.txt");
+			outputFile.println("Periodic Table (" + elements + ")\n");
+			outputFile.println("ANo. Name                 Abr    Mass");
+			outputFile.println("---- -------------------- --- -------");
+			if(args[1].equals("atomic")){
+				for(startScan = 0; startScan < elements - 1; startScan++){
+					minIndex = startScan;
+					minValue = atomicNum[startScan];
+					massValue = mass[startScan];
+					nameValue = name[startScan];
+					abbrevValue = abbrev[startScan];
+					for(index = startScan + 1; index < elements; index++){
+						if(atomicNum[index] < minValue){
+							minValue = atomicNum[index];
+							massValue = mass[index];
+							nameValue = name[index];
+							abbrevValue = abbrev[index];
+							minIndex = index;
+						}
+					}
+					atomicNum[minIndex] = atomicNum[startScan];
+					atomicNum[startScan] = minValue;
+					mass[minIndex] = mass[startScan];
+					mass[startScan] = massValue;
+					name[minIndex] = name[startScan];
+					name[startScan] = nameValue;
+					abbrev[minIndex] = abbrev[startScan];
+					abbrev[startScan] = abbrevValue;
+				}
+				for(int i = 0; i < elements; i++){
+					if(name[i] != null){
+					outputFile.printf("%4d %-20s %-3s %7.2f\n", atomicNum[i], name[i], abbrev[i], mass[i]);
+					}
+				}
+			}else{
+				for(startScan = 0; startScan < elements - 1; startScan++){
+					minIndex = startScan;
+					minValue = atomicNum[startScan];
+					massValue = mass[startScan];
+					nameValue = name[startScan];
+					abbrevValue = abbrev[startScan];
+					for(index = startScan + 1; index < elements; index++){
+						if(name[index].compareTo(nameValue) < 0){
+							minValue = atomicNum[index];
+							massValue = mass[index];
+							nameValue = name[index];
+							abbrevValue = abbrev[index];
+							minIndex = index;
+						}
+					}
+					atomicNum[minIndex] = atomicNum[startScan];
+					atomicNum[startScan] = minValue;
+					mass[minIndex] = mass[startScan];
+					mass[startScan] = massValue;
+					name[minIndex] = name[startScan];
+					name[startScan] = nameValue;
+					abbrev[minIndex] = abbrev[startScan];
+					abbrev[startScan] = abbrevValue;
+				}
+				for(int j = 0; j < elements; j++){
+					outputFile.printf("%4d %-20s %-3s %7.2f\n", atomicNum[j], name[j], abbrev[j], mass[j]);
+				}
+			}
+			System.out.println("Output file printed.");
+			outputFile.println();
+			outputFile.printf("The average mass: %19.2f\n", average);
+			outputFile.close();
+		}else if(args.length == 0){
+			System.out.println();}
+		else{
+			System.out.println("Unknown action.");}
+		inputFile.close();
+
+	}
+}
