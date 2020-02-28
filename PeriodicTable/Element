@@ -1,0 +1,35 @@
+/** Element class*/
+public class Element {
+	private int atomicNum;
+	private String abbreviation;
+	private float atomicMass;
+	private String name;
+	
+	public Element(int a, String n, String abbrev, float m) {
+		atomicNum = a;
+		name = n;
+		abbreviation = abbrev;
+		atomicMass = m;
+	}
+	
+	public int getAtomicNum() {
+		return atomicNum;
+	}
+	
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+	
+	public float getAtomicMass() {
+		return atomicMass;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String toString() {
+		return String.format("%4d %-20s %-3s %7.2f", atomicNum, name, abbreviation, atomicMass);
+	}
+}
+
