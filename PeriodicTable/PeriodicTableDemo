@@ -1,0 +1,15 @@
+/** Tests PeriodicTable and Element class */
+import java.io.*;
+
+public class PeriodicTableDemo {
+	public static void main(String args[]) throws IOException {
+		PeriodicTable periodicTable = new PeriodicTable();
+		periodicTable.print();
+		
+		Element search = periodicTable.findSymbol("Fe");
+		System.out.println();
+		if(search != null)
+			System.out.print(search.toString());
+	}
+}
+
