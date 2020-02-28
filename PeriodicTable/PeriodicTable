@@ -1,0 +1,48 @@
+/** Periodic Table class*/
+import java.io.*;
+import java.util.Scanner;
+
+public class PeriodicTable {
+	private Element[] periodicTable = new Element[130];
+	private int count = 0;
+	
+	public PeriodicTable() throws IOException {
+		File file = new File("/user/tvnguyen7/data/periodictable.dat");
+		Scanner inputFile = new Scanner(file);
+		int i = 0;
+
+		while(inputFile.hasNext()) {
+			int atomicNum = inputFile.nextInt();
+			String abbreviation = inputFile.next();
+			float atomicMass = inputFile.nextFloat();
+			String name = inputFile.next();
+			periodicTable[i] = new Element(atomicNum, name, abbreviation, atomicMass);
+			i++;
+			count++;
+		}
+		inputFile.close();
+	}
+	
+	public Element findSymbol(String abbreviation) {
+		boolean abbrevFound = false;
+		int i = 0;
+		while(!abbrevFound && i < count) {
+			if(periodicTable[i].getAbbreviation().equals(abbreviation))
+				abbrevFound = true;
+			else
+				i++;
+		}
+		return abbrevFound ? periodicTable[i] : null;
+	}
+	
+	public void print() {
+		System.out.println("Q. Wang's Periodic Table\n");
+		System.out.println("Periodic Table (" + count + ")\n");
+		System.out.println("ANo. Name                 Abr    Mass");
+		System.out.println("---- -------------------- --- -------");
+		for(int i = 0; i < count; i++)) {
+			String table = periodicTable[i].toString();
+			System.out.println(table);
+		}
+	}
+}
